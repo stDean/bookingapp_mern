@@ -3,12 +3,10 @@ const router = express.Router();
 
 // add the controllers
 const { HotelsCtrl } = require("../controllers/hotels.ctrl");
-const { getHotels, createHotel, updateHotel } = HotelsCtrl;
+const { getHotels, getHotel, createHotel, updateHotel, deleteHotel } = HotelsCtrl;
 
 // routes
-router.route("/").get(getHotels);
-router.route("/").post(createHotel);
-router.route("/:id").patch(updateHotel);
-router.route("/:id").delete();
+router.route("/").get(getHotels).post(createHotel);
+router.route("/:id").get(getHotel).patch(updateHotel).delete(deleteHotel);
 
 module.exports = router;
