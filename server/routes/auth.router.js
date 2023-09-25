@@ -3,9 +3,10 @@ const router = express.Router();
 
 // add the controllers
 const { AuthCtrl } = require("../controllers/auth.ctrl");
-const { login } = AuthCtrl;
+const { login, register } = AuthCtrl;
 
 // routes
-router.route("/").get(login);
+router.route("/login").post(login);
+router.route("/register").post(register);
 
 module.exports = router;
