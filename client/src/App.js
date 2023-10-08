@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-import { Home, Hotel, List } from "./pages";
+import { Home, Hotel, List, Login } from "./pages";
 
 function App() {
   return (
@@ -8,6 +8,7 @@ function App() {
       <Route index element={<Home />} />
       <Route path="hotels" element={<List />} />
       <Route path="hotels/:id" element={<Hotel />} />
+      <Route path="login" element={<Login />} />
     </Routes>
   );
 }
