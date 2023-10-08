@@ -11,6 +11,7 @@ const {
   deleteHotel,
   getHotelByCity,
   getHotelByType,
+  getHotelRooms,
 } = HotelsCtrl;
 const {
   VerifyAdmin,
@@ -24,7 +25,11 @@ router
   .get(getHotel)
   .patch(AuthMiddleware, VerifyAdmin, updateHotel)
   .delete(AuthMiddleware, VerifyAdmin, deleteHotel);
+
 router.route("/countByCity").get(getHotelByCity);
 router.route("/countByType").get(getHotelByType);
+router.route("/room/:hotelId").get(getHotelRooms);
+
+
 
 module.exports = router;

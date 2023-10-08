@@ -3,7 +3,14 @@ const router = express.Router();
 
 // add the controllers
 const { RoomsCtrl } = require("../controllers/rooms.ctrl");
-const { getRooms, getRoom, createRoom, updateRoom, deleteRoom } = RoomsCtrl;
+const {
+  getRooms,
+  getRoom,
+  createRoom,
+  updateRoom,
+  deleteRoom,
+  updateRoomAvailability,
+} = RoomsCtrl;
 const {
   VerifyAdmin,
   AuthMiddleware,
@@ -18,4 +25,5 @@ router
   .patch(AuthMiddleware, VerifyAdmin, updateRoom);
 router.route("/:id/:hotelId").delete(AuthMiddleware, VerifyAdmin, deleteRoom);
 
+router.route("/availability/:roomId").put(updateRoomAvailability);
 module.exports = router;

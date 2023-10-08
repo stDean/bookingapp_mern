@@ -12,7 +12,7 @@ const Login = () => {
   });
   const navigate = useNavigate();
 
-  const { dispatch, error, loading, user } = useUser();
+  const { dispatch, error, loading } = useUser();
 
   const handleChange = e => {
     setCredentials(prev => ({ ...prev, [e.target.id]: e.target.value }));
@@ -25,7 +25,7 @@ const Login = () => {
     try {
       const res = await axios.post("/auth/login", credentials);
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-      navigate("/")
+      navigate("/");
     } catch (err) {
       console.log(err.response.data);
       dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });

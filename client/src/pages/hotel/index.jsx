@@ -12,6 +12,8 @@ import { Footer, Header, MailList, NavBar } from "../../components";
 import { useFetch } from "../../hooks/useFetch";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSearch } from "../../context/SearchContext";
+import { useUser } from "../../context/AuthContext";
+import { Reserve } from "../../components/reserve/Reserve";
 
 // const photos = [
 //   {
@@ -44,6 +46,7 @@ const Hotel = () => {
   const { data, loading } = useFetch(`/hotels/find/${id}`);
 
   const { dates, options } = useSearch();
+  const { user } = useUser();
 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
   function dayDifference(date1, date2) {
@@ -53,7 +56,6 @@ const Hotel = () => {
   }
 
   const days = dayDifference(dates[0]?.endDate, dates[0]?.startDate);
-  const user = null;
 
   const handleClick = () => {
     if (user) {
@@ -175,6 +177,8 @@ const Hotel = () => {
           <Footer />
         </div>
       )}
+
+      {openModal && <Reserve setOpen={setOpenModal} hotelId={id} />}
     </>
   );
 };

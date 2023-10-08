@@ -1,7 +1,8 @@
 const { StatusCodes } = require("http-status-codes");
 
 const Hotels = require("../models/Hotel.model");
-const { NotFoundError } = require("../errors");
+const Room = require("../models/Room.model");
+const { NotFoundError, BadRequestError } = require("../errors");
 
 const HotelsCtrl = {
   getHotels: async (req, res) => {
@@ -63,7 +64,7 @@ const HotelsCtrl = {
     cities = cities.split(",");
 
     const lists = await Promise.all(
-      cities.map((city) => {
+      cities.map(city => {
         return Hotels.countDocuments({ city: city });
       })
     );
@@ -84,6 +85,18 @@ const HotelsCtrl = {
       { type: "villa", count: villaCount },
       { type: "cabin", count: cabinCount },
     ]);
+  },
+  getHotelRooms: async (req, res) => {
+    const hotel = await Hotels.findById(req.params.hotelId);
+    const list = await Promise.all(
+      hotel.rooms.map(room => Room.findById(room))
+    );
+
+    if (!hotel) {
+      throw new BadRequestError("No Hotel was found");
+    }
+
+    res.status(StatusCodes.OK).json(list);
   },
 };
 

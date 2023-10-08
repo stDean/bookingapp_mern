@@ -1,7 +1,7 @@
 const Room = require("../models/Room.model");
 const Hotel = require("../models/Hotel.model");
 const { StatusCodes } = require("http-status-codes");
-const { NotFoundError } = require("../errors");
+const { NotFoundError, BadRequestError } = require("../errors");
 
 const RoomsCtrl = {
   createRoom: async (req, res) => {
@@ -75,6 +75,21 @@ const RoomsCtrl = {
     }
 
     res.status(StatusCodes.OK).json({ success: true });
+  },
+  updateRoomAvailability: async (req, res) => {
+    const { roomId } = req.params;
+
+    await Room.updateOne(
+      { "roomNumbers._id": roomId },
+      {
+        // nested props
+        $push: {
+          "roomNumbers.$.unavailableDates": req.body.dates,
+        },
+      }
+    );
+
+    res.status(StatusCodes.OK).json({ msg: "Room updated" });
   },
 };
 
