@@ -30,7 +30,7 @@ export const Reserve = ({ setOpen, hotelId }) => {
     return dates;
   };
 
-  const allDates = getDatesInRange(dates[0].startDate, dates[0].endDate);
+  const allDates = getDatesInRange(dates[0]?.startDate, dates[0]?.endDate);
 
   const handleSelect = e => {
     const checked = e.target.checked;
@@ -72,6 +72,8 @@ export const Reserve = ({ setOpen, hotelId }) => {
     }
   };
 
+  console.log(rooms.length);
+
   return (
     <div className="reserve">
       <div className="rContainer">
@@ -111,7 +113,10 @@ export const Reserve = ({ setOpen, hotelId }) => {
           </div>
         ))}
 
-        <button onClick={handleClick} className="rButton">
+        <button
+          onClick={handleClick}
+          className="rButton"
+        >
           Reserve Now!
         </button>
       </div>

@@ -1,7 +1,7 @@
 const Room = require("../models/Room.model");
 const Hotel = require("../models/Hotel.model");
 const { StatusCodes } = require("http-status-codes");
-const { NotFoundError, BadRequestError } = require("../errors");
+const { NotFoundError } = require("../errors");
 
 const RoomsCtrl = {
   createRoom: async (req, res) => {
@@ -62,7 +62,7 @@ const RoomsCtrl = {
     } = req;
 
     const room = await Room.findOneAndDelete({ _id: roomId });
-    const hotel = await Hotel.findByIdAndUpdate(
+    await Hotel.findByIdAndUpdate(
       hotelId,
       { $pull: { rooms: roomId } },
       {

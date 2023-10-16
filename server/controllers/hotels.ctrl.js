@@ -59,7 +59,10 @@ const HotelsCtrl = {
 
     res.status(StatusCodes.OK).json({ success: true });
   },
+  // for search filter functionality
   getHotelByCity: async (req, res) => {
+    // get the count value of city
+    
     let { cities } = req.query;
     cities = cities.split(",");
 
